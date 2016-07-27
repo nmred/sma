@@ -31,7 +31,7 @@ function fanyi($word) {
 	$basics = array();
 	$dictbasics = $dom->find('.basic ul');
 	foreach ($dictbasics as $basic) {
-		$basic = trim(strip_tags($basic->innerHtml));
+		$basic = trim(strip_tags(str_replace('search_in_n', '', $basic->innerHtml)));
 		if ($basic) {
 			$basics[] = $basic;		
 		}
