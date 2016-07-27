@@ -89,10 +89,6 @@ Last but not least, Chapter 16 deals with the programming interfaces enabling di
 Finally, a few more words about support software, which can be downloaded from the book site http://booksite.elsevier.com/9780128037614. There are, in early chapters, some examples that target specific Pthreads, Windows, or C++11 features. But the majority of examples access the basic library utilities through the portable vath library presented in Chapters 9 and 12. The examples are therefore fully portable, and it is up to the reader to decide what implementation to use. Annex A provides a complete description of the accompanying software, as well as detailed instructions for installation of the different software components, and for compilation and execution of the vath library and the code examples.
 
 <html>
-<link rel="stylesheet" type="text/css" href="tooltip.css">
 <style>
-f {
-	background: yellow;
-}
 </style>
 </html>
