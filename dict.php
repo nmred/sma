@@ -83,6 +83,9 @@ foreach (glob("*.md") as $file) {
 			}
 		}
 		$line = preg_replace('/@@([a-zA-Z-]*)@@/i', '<f>$1</f>', $line);
+		$line = str_replace('>', '', $line);
+		$line = str_replace('<f', '<f>', $line);
+		$line = str_replace('</f', '</f>', $line);
 		$contents[$key] = $line;
 	}
 	$result = array();
