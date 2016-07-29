@@ -117,14 +117,9 @@ The three following chapters discuss a few full applications taken from computat
 
 Last but not least, Chapter 16 deals with the programming interfaces enabling direct access to the TBB task scheduler. This subject, admittedly a rather advanced subject on task parallelism, is nevertheless interesting and relevant. It was often emphasized in preceding chapters that the event synchronization primitives and high-level utilities discussed in Chapters 6 and 8 are not adapted to be used in task-centric environments (TBB, NPool, or the OpenMP task API), because they are programmed inside parallel tasks, but they really synchronize the underlying executing threads. This is fine as long as a controlled, one-to-one mapping of tasks to threads is established. However, in task-centric environments this issue is handled by introducing specific task synchronization features in the task scheduler itself, enabling programmers to synchronize tasks, not threads. Chapter 10 covers a OpenMP 4.0 extension, based on the new depends directive, that goes in this direction. The TBB task scheduler API implements task synchronization by using advanced scheduler features to organize the way the parallel tasks are scheduled and executed. In Chapter 16, a number of task synchronization examples are provided. In addition, the task scheduler is used to explore possible optimization strategies designed to improve the performance of the molecular dynamics application discussed in Chapter 13.
 
-Finally, a few more words about support software, which can be downloaded from the book site http://booksite.elsevier.com/9780128037614. There are, in early chapters, some examples that target specific Pthreads, Windows, or C++11 features. But the majority of examples access the basic library utilities through the portable vath library presented in Chapters 9 and 12. The examples are therefore fully portable, and it is up to the reader to decide what implementation to use. Annex A provides a complete description of the accompanying software, as well as detailed instructions for installation of the different software components, and for compilation and execution of the vath library and the code examples.
+Finally, a few more words about support software, which can be downloaded from the book site http://booksite.elsevier.com/9780128037614. There are, in early chapters, some examples that target specific Pthreads, Windows, or C++11 features. But the majority of examples access the basic library utilities through the portable vath library presented in Chapters 9 and 12. The examples are therefore fully portable, and it is up to the reader to decide what implementation to use. Annex A provides a complete description of the @@accompanying@@ software, as well as detailed instructions for installation of the different software components, and for compilation and execution of the vath library and the code examples.
 
-
-
-
-
-
-
+最后，说一下该书的软件支持，可以在该书的网站 http://booksite.elsevier.com/9780128037614 下载，在前面章节中一些实例演示关于 Pthreads、Windows 线程库或者 C++11 线程库的特性. 但大部分的实例是基于基础库实现的 vath Lib 库实现的，在第九章到第十二章。因此这些实例都是完全可移植的，并且读者可以决定哪些实现可以应用。附录中提供不同软件组件详细的安装实例，以及 vath Lib 库编译运行的例子。
 
 <!-- FANYI SATRT -->
 <link rel="stylesheet" type="text/css" href="tooltip.css">
