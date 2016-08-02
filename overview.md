@@ -102,33 +102,65 @@ Large parallel applications consist of independent processes running on differen
 
 ### 1.2.3 多核演化
 
-Since the early 1970s the sustained evolution of silicon technologies has followed a trend initially underlined by Gordon Moore, one of the Intel founders: the number of transistors that can be placed inexpensively on an integrated circuit doubles approximately every two years, and observation that is known under the name of Moore’s law. This exponential growth of the transistor count in a chip— arising from the smaller transistor sizes—generated a golden age in computing systems, not only because a given surface of silicon real state could accommodate more transistors, but also because the transistor performance increased with decreasing size: smaller transistors commuted faster—which meant faster chips—and used less working voltages and currents, i.e., less power.
+Since the early 1970s the @@sustained@@ evolution of silicon technologies has followed a trend initially underlined by Gordon Moore, one of the Intel founders: the number of @@transistors@@ that can be placed inexpensively on an integrated @@circuit@@ doubles approximately every two years, and observation that is known under the name of Moore’s law. This @@exponential@@ growth of the transistor count in a chip—arising from the smaller transistor sizes—generated a golden age in computing systems, not only because a given @@surface@@ of silicon real state could @@accommodate@@ more transistors, but also because the transistor performance increased with decreasing size: smaller transistors @@commuted@@ faster—which meant faster chips—and used less working @@voltages@@ and @@currents@@, i.e., less power.
 
-A seminal paper written in 1974 by Robert Dennard and colleagues [4] at the IBM T.J. Watson Research Center, described the scaling rules for obtaining simultaneous improvements in transistor density, switching speeds and power dissipation. These scaling principles—known as Dennard scaling—determined the roadmap followed by the semiconductor industry for producing sustained transistor improvements. Table 1.1, reproduced from Dennard’s paper, summarizes the transistor or circuit parameters under ideal scaling. In this table k is the scaling factor for transistor size.
+自20世纪70年代以来硅技术的持续发展，遵循了 Intel 公司创始人 Gordon Moore 最初强调的发展趋势: 在价格不变的情况下，一个集成电路的晶体管每两年将翻一倍，这就是知名的摩尔定律。这个指数增长是由于在晶体管大小发展的黄金时代在计算机系统中，而不仅仅是给定硅表面可以容纳更多晶体管，还有一个原因是随着晶体管的大小变小性能也在提升：更小的晶体管运行的更快，这就意味着需要的电流和电压更少，从而减少能耗。
+
+A seminal paper written in 1974 by Robert Dennard and colleagues [4] at the IBM T.J. Watson Research Center, described the scaling rules for obtaining @@simultaneous@@ improvements in transistor @@density@@, switching speeds and power @@dissipation@@. These scaling principles known as Dennard scaling—determined the roadmap followed by the @@semiconductor@@ industry for producing sustained transistor improvements. Table 1.1, reproduced from Dennard’s paper, summarizes the transistor or circuit parameters under ideal scaling. In this table k is the scaling factor for transistor size.
+
+一个有价值的论文在 1974 年有 Robert Dennard 和其在 IBM 华盛顿研究中心的同事，描述了用于同时提升晶体管密度并且其实速度及降低能耗的缩放规则。这个比例原则被称为 Dennard 原则，半导体工业将遵循该原则生产及对晶体管改进。表 1.1 转载自 Dennard 的论文，汇总了晶体管和电路参数的理想比例，在表中 k 代表晶体管的缩放比例。
+
+![t1.1](img/t1.1.png)
 
 The implications of Dennard scaling are obvious: reducing by a half the transistor size multiplies by 4 the number of transistors in a given area at constant power dissipation, and in addition each transistor is operating twice as fast. This is the reason why for more than three decades we enjoyed the benefits of automatic performance enhancements: processor working frequencies (and, therefore, their peak performance) doubled every 18 months. This was a very comfortable situation; it was sometimes sufficient to wait for the next generation of CPU technology to benefit from an increased applications performance. Parallel processing was mainly an issue of choice and opportunity, mostly limited to supercomputing or mission critical applications.
 
+
+Dennard 比例原则影响的是显而易见的：晶体管的尺寸减少一半，在同等功耗相同面积的情况下晶体管总数增加4倍，增加的每个晶体管的性能翻倍。这就是接近 30多年我们可以享受性能自动提升好处的原因：处理器的工作频率每18个月就翻倍。这是非常理想的情况，有时可以直接等待下一代 CPU 处理器来直接提升应用程序的性能。并行处理的主要是一个选择和机会的问题，大多局限于超级计算机或关键任务的应用程序。
+
 This golden age came to an end about 2004, when a power dissipation wall was hit. As transistors reach smaller sizes, new previously negligible physical effects emerge—mainly quantum effects—that invalidate Dennard’s scaling. Working voltages essentially stopped shrinking at this time, and today clock speeds are stuck because it is no longer possible to make them work faster. Moore’s law still holds: it is always possible to double the transistor count about every 2 years, but shrinking the transistor size does not make them better, as was the case when Dennard scaling applied.
 
+这个黄金发展时代大约在2004年结束，能耗已经成为了瓶颈，晶体管的尺寸也达到了最小，new previously negligible physical effects emerge—mainly quantum effects—that invalidate Dennard’s scaling，工作电压在这个时候基本上停止了缩小，并且时钟频率也由于这个原因不会更加快了。摩尔定律仍然成立：每两年晶体管个数翻倍，但是通过 Dennard 的缩放原则缩小晶体管尺寸视乎已经不是更好的选择
+
 > Today, the only benefits of shrinking transistor sizes are disposing of more functions per chip and/or lower costs per function.
+> 如今，缩小晶体管尺寸的好处仅仅是可以处理更多功能每个芯片，每个功能相对的成本降低。
 
 For this reason, the last decade has witnessed the multicore evolution. Processor chips are no longer identified with a single CPU, as they contain now multiple processing units called cores. Since clock speeds can no longer be increased, the only road for enhanced performance is the cooperative operation of multiple processing units, at the price of making parallel processing mandatory. Virtually all processor vendors have adopted this technology, and even the simplest laptop is today a SMP platform. Multicore processor chips are now called sockets. The present situation can be summarized as follows:
 
+基于这个原因，最近10年开始进行了多核演进，处理芯片不在是单个 CPU， 而是包含了多个处理核心，自从时钟运算速度不在提升，唯一可以提升速度的方式就是多个处理单元一起操作完成，处理并行的任务。事实上所有的处理器厂商都采用该技术，甚至最简单的笔记本也是一个 SMP 计算平台。目前可以总结如下：
+
 - The number of cores per socket doubles every 2 years.
 - Clock speeds tend to mildly decrease. In any case, they are stabilized around a couple of GHz.
+- 每片处理器每 2 年核数将翻倍
+- 时钟运算速度有轻微的下降趋势，但是在任何时候他们的速度将保持在数 GHz 左右
 
 It follows that the most general computing platform has the following hierarchical structure, as shown in Figure 1.4:
+
+遵守的最通用的计算平台具有如下层级结构，如图 1.4 所示
+
 - Several cores inside a socket
 - A few sockets interconnected around a shared memory block to implement a SMP node
 - A substantial number of SMP nodes interconnected in a distributed memory cluster
+- 一片CPU 中具有多核
+- 多个 CPU 通过内部连接共享一个内存卡组成了一个 SMP 节点
+- 多个 SMP 计算节点通过内部连接组成一个分布式内存计算集群
+
+![1.4](img/1.4.png "通用计算平台集群")
 
 In such a system, three programming models can be implemented:
+
+在这个系统中三个编程模式可以实现：
 
 - Shared memory multithreaded programming inside a SMP node. From a programmer’s point of view, the logical view of a SMP node is just a number of virtual CPUs—the cores—sharing a common memory address space. It does not matter whether the different cores are in the same or in different sockets.
 - Flat MPI distributed memory programming across cores. In this approach, each core in the system runs a full MPI process, and they all communicate via MPI message passing primitives. It does not matter whether the MPI processes are all in the same or in different SMP nodes.
 - A hybrid MPI-Threads model in which each MPI process is internally multithreaded, running on several cores. These MPI processes communicate with one another via the MPI message passing protocol.
 
+- 共享内存的多线程编程在一个 SMP 节点上，对于一个程序员角度，一个 SMP 节点只是逻辑上一些虚拟的 CPU 核心共享一个通用的内存地址空间。和不同的核数或者不同的 CPU 个数没有关系。
+- MPI 跨核分布式内存编程. 通过这个方法，在系统中每个核心运行所有的MPI 进程，它们通过 MPI 消息通信原语来通信，不用关心 MPI 是否在相同或者不同的 SMP 节点上。
+- 混合 MPI 线程模式，在每个 MPI 进程中应用多线程，运行在多颗核心上。这些 MPI 进程通信是通过 MPI 通信原语协议
+
 This book covers the first programming model discussed above; namely, shared memory application programming on multicore platforms. Chapter 2 presents the different ways in which a multithreaded process can be scheduled and run on these platforms.
+
+这本书讨论上面的第一种开发模式，就是多核计算平台的内存共享开发。第二章介绍多线程进程调度在这些平台下的不同方式。
 
 ---
 
@@ -136,39 +168,76 @@ This book covers the first programming model discussed above; namely, shared mem
 
 A number of programming issues that will be encountered later on require a clear understanding of the operation of a computing platform memory system. As stated, one of the most important performance issues is the memory wall; namely, the mismatch between the processor clock and the high latencies involved in each main memory access. The memory system of modern computing platforms is designed to reduce as much as possible the memory wall impact on the application’s performance.
 
+一些开发中的问题将在后面遇到，需要清晰的理解内存系统在计算平台的操作。正如，一个重要的性能问题就是 memory wall; 即处理器时钟和高延迟的不匹配涉及于每个内存访问。内存系统在现代计算平台设计中为了尽可能介绍 memory wall 的影响应用程序的性能
+
 ### 1.3.1 读内存
 
 The first observation is that the huge latencies of a few hundreds of processor cycles are a characteristic of the sdram technologies used in large main memory blocks, typically of the order of 2-4 gigabytes per core in current platforms. Other, faster technologies are available, but it would be prohibitively expensive to use them for main memories of these sizes.
+
+首先，主要的内存块由 sd ram 构成的最大特征是具有数百个处理周期的延迟，典型的是每个核心延迟 2-4 千兆在当前平台。另外，更快的技术也存在，只是应用在主存这个规模上价格有点贵的望而却步。
+
 The next observation is about the locality of memory accesses. In most applications, access to a memory location is often followed by repeated accesses to the same or to nearby locations. Then, the basic idea is to store recently accessed memory blocks in smaller but faster memory devices. When a memory location is accessed for a read, a whole block of memory surrounding the required data is copied to a cache memory, a smaller capacity memory device with a significantly lower latency, based on faster memory technologies. Future read accesses to the same or to nearby memory locations contained in the block will retrieve the data directly from the cache memory in a much more efficient way, avoiding costly main memory access. The memory blocks copied in this way are called cache lines.
+
+下一个将介绍内存访问的局部性，在大部分应用程序，经常会重复的访问局部内存的相同数据或者附近的数据。基本的想法就是存储最近访问的内存块到一个更小的但是更快的内存设备中，当需要读取数据的时候，将需要复制的数据周围的整个内存块复制到一个更小容量但是低延迟基于快速内存技术的内存设备中，将来需要读取同样的数据或者内存地址附近包含的数据时直接从缓存内存中读取，避免访问主存消费时间。内存块复制的方式通过高速缓存线
+
 Cache memories are significantly smaller than the main memory. It is then obvious that, when reads are very frequent, the cache lines will often be overwritten with new data, thereby invalidating previously cached data values. Various algorithms are used to choose the cache lines that are to be reused, with different impacts on performance.
+
+缓存内存是明显小于主存的内存设备。很明显的，当读取特别频繁时，缓存区会被新的数据覆盖掉，是的以前缓存的数据失效。多种算法提供缓存是否重新使用，影响的性能也不同
+
 These observations lead to a hierarchical multilevel memory system in which cache lines at one level are copied to a faster, lower level memory device. As long as data is read, it is retrieved from the lowest level cache memory holding a valid data value (we will soon discuss what a valid data value is). Figure 1.5 shows a typical organization of the memory hierarchy, exhibiting two intermediate cache levels—called L1 and L2—between the main memory and the core registers, which are the ultrafast memory buffers internal to the executing core, where data is deposited before being processed by the core functional units. Typically, core registers are 4(8) bytes wide for 32(64) bit architectures. It is important to keep in mind that current CPUs are load-store architectures in which data is always moved to core registers before being processed. Direct manipulation of memory locations does not occur in these architectures.
-The L1 caches are rather small but fast memory blocks used both as data caches—to store the most recently accessed data—as well as instruction caches—to store the instructions to be executed by the core. Because they are partly used to store the instructions to be executed, the L1 caches are never shared: threads running on different cores have their own, proprietary instruction stack. The L2 caches, instead, only store data, and they may be shared by several cores. In most systems, there is yet another cache level—called L3—between the L2 caches and the main memory, but this is not critical to our discussion.
+
+内存多层结构中等级越低的内存设备复制速度越快。对于读取数据，是从具有有效数据的最底层级的内存设备中获取，图 1.5 所示一个典型内存分层结构，展示了位于主存和 CPU 寄存器之间的两级缓存分别是 L1 和 L2, 这是超快内存缓冲区的执行核心。典型的 CPU 寄存器是 4（8）bytes 带宽对于 32（64）为系统。需要强调的是当前 CPU 存储机构中数据在处理器需要移到寄存器中。在这些架构中内存直接访问将不再发生
+
+The L1 caches are rather small but fast memory blocks used both as data caches to store the most recently accessed data as well as instruction caches—to store the instructions to be executed by the core. Because they are partly used to store the instructions to be executed, the L1 caches are never shared: threads running on different cores have their own, proprietary instruction stack. The L2 caches, instead, only store data, and they may be shared by several cores. In most systems, there is yet another cache level—called L3—between the L2 caches and the main memory, but this is not critical to our discussion.
+
+L1 缓存是比较小但是最快的内存块，用来缓存最近访问的数据或者缓存 CPU 要执行的指令。因为部分用来存储指令执行的，所以 L1 缓存是不能共享的：在不同的核心上的线程都拥有独立的 L1 缓存指令栈. L2 缓存仅仅存储数据并且可以多核心共享的。在大部分系统中还有另一个缓存叫做 L3 位于主存和 L2 缓存之间，但是这个不是我们讨论的重点。
+
 Typical values of cache lines are 128 (or more) bytes for L2 and 32 bytes for L1. Typical latencies are 4 cycles for the L1 cache, 12 cycles for the L2 cache, and roughly 150-200 cycles for main memory. This memory hierarchy enhances memory performance in two ways. On one hand, it reduces the memory latency for recently used data. On the other hand, it reduces the number of accesses to the main memory, thereby limiting the usage of the network interconnect and the bandwidth demand. Indeed, accesses to L1 and L2 caches do not require network activation because they are part of the processor socket.
+
+典型的 L2 缓存是 128 bytes 或者更大，而 L1 是 32 bytes. L1 缓存延迟 4个时钟周期， L2 缓存延迟 12个周期，主存大约延迟在150-200个周期。内存层次结构提升性能有两种方式，一方面是是减少最近使用数据的访问延迟, 另一方面是减少访问主存的个数， 从限制网络互连带宽的需求。确实，访问 L1 和 L2 缓存不需要网络来通信，因为他们是处理器的一部分
 
 ### 1.3.2 写内存
 
 When a data value is changed in a processor register, the CPU must proceed to update the original main memory location. Typically, the new data value is updated first in the L2 cache, and from there on the network interconnect is activated to update the main memory. The following issues arise every time a new data value is updated in the L2 cache:
+
+当一个值在处理器寄存器中改变，CPU 必须将其更新到主存中，通常首先会将新的值更新到 L2 缓存中，并且通过网络内部连接更新到主存中。每次新值更新到 L2 缓存中都会发生下面这些问题：
+
 - First, the cache memory is no longer coherent with the main memory. How and when the main memory is updated is system dependent, but there is in most cases a time delay: the memory update is not atomic (instantaneous). Some systems choose to delay the writes in order to collect several data items in a write buffer, and then move them in a unique memory access in order to pay the big latency cost only once.
-- Secondly, the updated cache memory is no longer coherent with other L2 caches in other sockets that may contain the old invalid value of the updated variable. The CPU that has performed the update must therefore inform all other CPUs engaged in the application that the relevant cache line is invalid, and that further reads of data in this cache line must get the data values from main memory. This is the cache coherency issue.
+- Secondly, the updated cache memory is no longer coherent with other L2 caches in other sockets that may contain the old invalid value of the updated variable. The CPU that has performed the update must therefore @@inform@@ all other CPUs @@engaged@@ in the application that the relevant cache line is invalid, and that further reads of data in this cache line must get the data values from main memory. This is the cache coherency issue.
 - Finally, because of the time delays in memory updates mentioned before, those threads that must get updated data values from main memory must know, in one way or another, when the new updated values are available. They must make sure that, in performing a read, they recover the last updated value of the target data item. This is the memory consistency issue.
+
+- 首先，高速缓存与主存不在一致，如何什么时候更新将依赖于操作系统，但是都会有一定的延迟在大部分情况下，内存更新是非原子的。一些系统采用延迟写以便写缓冲一次写入更多的数据，这样大量的写操作延迟仅仅一次就够了。
+- 其次，更新缓存不在与其他核心的 L2 缓存数据保持一致，可能存在更新后的值是无效的情况。因此在CPU更新的值的时候必须通知在应用中其他核心的值是无效的，并且在将来读取值也需要从主存中读取，这就是高速缓存的一致性问题
+- 最后，由于以前提到的内存更新延迟时间问题，一些线程必须知道从主存中获取更新的数据，另外需要知道什么时候存在更新的新值。必须确保在一个读取操作中获取到的数据是最后一次更新的数据，这就是内存的一致性问题
 
 These two issues—memory coherency and consistency—are analyzed in more detail in Chapter 7. It is obvious that the cache coherency mechanism requires a persistent communication context among sockets in a SMP platform, and this is the main reason why it is not possible to extend a shared memory SMP architecture into the massive parallel domain. It is just too expensive and unrealistic to try to enforce cache coherency among hundreds or thousands of sockets in a SMP node.
 
+两个内存的一致性问题将在第七章更详细的分析介绍。很显然解决缓存一致性问题需要在SMP平台的多颗 CPU 中有一个持续的通信原语来解决，这就是 SMP 结构中为什么不能在大型并行领域扩展共享内存块的原因。太贵了实现成百上千个 SMP 节点中实现缓存一致性，几乎是不太现实
+
 In discussing the performance and the behavior or several real applications in Chapters 13–15, we will have the opportunity to discuss how the memory access patterns impacts the application performance.
+
+在第十三章和十五章中讨论性能和行为的问题，我们将有机会讨论内存访问时如何影响应用程序性能的通过几个真实的应用程序
 
 ---
 
 ## 1.4 核内并行处理
 
 The essence of multithreaded programming is the capability of coordinating the activity of several CPUs in the execution of a given application. In principle, whatever happens inside a single core is not directly relevant to multithreaded programming. However, it is extremely relevant to the overall performance of the application, and there are some capabilities of current CPU architectures that must be integrated into the developer’s options.
+
+
+
 There is an amazing amount of parallel processing inside a core. After all, millions of transistors operate concurrently most of the time. After translating the application code into basic assembler language, hardware, system, and compiler software cooperate to take as much as possible advantage of instruction level parallelism. This means running the basic instructions in parallel whenever it is possible to do so while respecting the program integrity.
+
 Instruction-level parallelism is too low level to constitute a direct concern to programmers. But there are other parallel structures that are definitely worth their attention: hyperthreading and vectorization.
 
 ### 1.4.1 超线程
 
 Hyperthreading is the CPU capability of simultaneously running several threads. This means, very precisely, that the core has the capability of interleaving the execution of instructions arising from different execution streams, while maintaining the program integrity. These different execution streams interleaved in hyperthreading are in general targeting different data sets, and Chapter 2 will explain how the multithreaded execution environment is organized in such a way as to make this possible.
+
 Hyperthreading should not be confused with another feature also to be discussed in the next chapter: a core can service several threads by running them one at a time, in a round robin fashion, allocating CPU time slices to all of them. This is a very general operating system feature that has always existed in multithreading, enabling the possibility of over-committing threads on a given core. In this case, different threads access successively the CPU cycles. In a hyperthreading operation, they are simultaneously sharing CPU cycles.
+
 The main reason for introducing hyperthreading capabilities in modern CPU architectures is to make better use of the CPU cycles, e.g., in accumulating efforts to beat the memory wall. If a thread needs to wait for memory data, there may be tens or hundreds of cycles wasted doing nothing. These cycles can then be used to run other thread instructions. Hyperthreading has different impacts on different architectures. In general-purpose CPUs, hyperthreading hides occasional latencies, and its impact on performance strongly depends on the code profile. However, there are more specialized architectures— like the IBM BlueGene platforms, or Intel Xeon Phi coprocessor discussed in the following—where for different reasons hyperthreading is required to benefit from the full single-core performance.
+
 The name hardware threads is used to refer to the number of threads that a core can simultaneously execute.
 
 ### 1.4.2 矢量化
@@ -176,6 +245,7 @@ The name hardware threads is used to refer to the number of threads that a core 
 Vectorization is another parallel processing technique that enhances the single core performance. In a multithreaded environment, different threads execute different instruction streams acting on different data sets. This parallel pattern is called MIMD, meaning Multiple Instruction, Multiple Data.
 
 Vectorization, instead, implements a totally different parallel pattern called SIMD—Single Instruction, Multiple Data—in which a single instruction operates on several data items in one shot, as is explained in detail below.
+
 Let us consider a simple example, the execution of the operation a += b; where a and b are vectors of doubles of size N. This corresponds to the execution of the loop:
 
 ```c
@@ -188,16 +258,20 @@ Let us consider a simple example, the execution of the operation a += b; where a
 ```
 
 Figure 1.6 shows the internal CPU registers, where the target data for operations is stored. The scalar registers are 64 bits wide, and can hold a double. In the default scalar mode of operation, the vector addition is computed by adding one component at a time. The values of a[n] and b[n] are loaded into Ra and Rb registers, respectively. Then, the operation Ra = Ra+Rb is performed, and the value of Ra is copied to a[n].
+
 Cores with SIMD capabilities have wide vector registers that can hold several vector components. In the Intel Sandy Bridge processor, vector registers are 256 bits wide, holding either four doubles or eight floats, and we speak in this case of four or eight SIMD lanes, respectively. Vector instructions can act simultaneously in one shot on all the SIMD lanes, boosting the floating-point performance. In vector mode, the loop above is computed by loading in RVa and RBv a block of four a[] and b[] components, and acting simultaneously on all of them.
+
 Implementing wide vector registers in the core architecture is not sufficient. The capability of loading the wide vector registers as fast as the scalar registers is also required, which in turn demands an
 
 enhanced communication bandwidth between the core and the L2 cache. When the code profile is well adapted, vectorization can provide significant performance enhancements in computationally bound applications. Vectorization is re-examined in more detail in Chapter 10, when discussing the OpenMP 4.0 new vectorization directives. In Chapters 13–14, the impact of vectorization on real application examples is assessed.
+
 
 ---
 
 ## 1.5 外部计算设备
 
 The last few years have witnessed impressive development of external computational devices that connect to a socket via the standard network interfaces for external devices. They act as a co-processor executing code blocks offloaded from the CPU cores, boosting the execution performance for suitable computationally intensive code blocks—called kernels—in the application. They are seen from the host CPU as another computational engine available in the network.
+
 External computational devices are shown in Figure 1.7. They all have an internal device memory hierarchy as well as a large number of cores for computation. There are today two very different kinds of external devices: GPUs (Graphical Processing Units)—accelerator devices capable of executing basic computational kernels with very high performance and very low power consumption—and the Intel’s Xeon Phi coprocessor.
 
 ### 1.5.1 GPUs
@@ -205,9 +279,13 @@ External computational devices are shown in Figure 1.7. They all have an interna
 Initially, graphics accelerator cards—called GPUs, for Graphical Processing Units, used for rendering visualization images—were occasionally used to perform other computations that could be rephrased in terms of the graphical programming API. Working on a two-dimensional image—a two-dimensional array of pixels—is a highly parallel affair, because most of the time sets of pixels can be simultaneously updated. Graphics hardware and software are strongly data parallel. GPUs map the graphics algorithms to a large set of independent execution streams (threads) all executing the same operations on different sectors of the target data set.
 
 A major step was taken in 2007 when NVIDIA Corporation realized the interest in allowing programmers to think of a GPU as a processor. Besides a substantial number of hardware improvements to reduce the gap between graphics accelerators and more standard computational engines, the CUDA C/C++ compiler, libraries and runtime software were introduced, enabling programmers to access the underlying data parallel computation model and develop applications adapted to this model. Graphics APIs were no longer needed to benefit from the GPU computing environment. Since then, the progress accomplished at the hardware and software levels is quite remarkable. Today, GPUs are very powerful computational engines, and part of their success is due to the fact that the computing cores, being very lightweight, beat the power dissipation wall providing an excellent ratio of computing power (flops) per dissipated watt.
+
 When discussing GPU accelerators, the concept of heterogeneous computing is important, because the GPU computing engine’s design requirements are different from those guiding CPU design. The CPU design is latency driven: making a single thread of execution as efficient as possible. A substantial amount of the silicon real state in a CPU is devoted to control logic—needed to implement instruction- level parallelism or to provide the low-level interfaces required to run an operating system—or to cache memories needed to optimize memory accesses. Further, CPUs have a limited number of cores. GPUs, instead, are throughput driven. They have today tens of thousands of very lightweight cores, each one involving very limited silicon real state because they are not intended to run an operating system. Indeed, GPU cores execute a restricted number of instructions for computation and synchronization with other cores. The code blocks they execute are offloaded from the application running in the main computing platform they are connected to. GPU cores are in absolute terms substantially less efficient than CPU cores, but the performance impact comes from their important number mentioned above, which provides a huge potential throughput. An application’s performance strongly depends on its capability to take advantage of the important amount of potential parallelism offered by the GPU. The interest of heterogeneous computing lies in the possibility of executing parts of the application in a standard platform and offloading to the GPU the execution of code blocks adapted to its architecture.
+
 The fundamental performance-limiting factor in GPUs is, again, the memory wall. Current GPUs have no direct access to the main memory, and the target data set must be offloaded to the GPU together with the code to be run. Then, output results must be returned to the master code running in the main platform. In this context, the real achieved sustained performance strongly depends on the application profile. Excellent efficiency is obtained only if a substantial amount of computation can be performed with a limited amount of data transfers to and from the host CPU. GPU architectures are nevertheless evolving very fast, and the possibility of directly exchanging data between different GPUs is available today. Substantial improvements are expected in the future concerning their access performance to the platform main memory.
+
 GPU programming requires specific programming environments (CUDA, OpenCL, OpenACL) capable of producing and offloading code and data to the GPU. These programming environments have matured greatly in the last few years, facilitating the dissemination and adoption of GPU programming. An important recent evolution is the recent OpenMP 4.0 extensions incorporating directives for offloading data and code blocks to accelerators, which will be reviewed in Chapter 10.
+
 Code executed in GPUs must conform to the target architecture capabilities. Threads running on the GPU cores are not the general-purpose threads, running on a general-purpose CPU, which are the main subject of this book.
 
 Today there is vast literature on GPUs. A good reference providing a broad coverage of this subject is D. Kirk and W. Hwu book, “Programming Massively Parallel Processors” [5]. Other useful references are “The CUDA Handbook” by N. Wilt [6] and “CUDA by Example” by J. Sanders and E. Kandrot [7].
@@ -224,7 +302,9 @@ A very useful and complete reference to the Intel Xeon Phi coprocessor is the �
 ## 1.6 总结
 
 This chapter has reviewed the basic technological concepts related to shared memory programming. A somewhat more detailed discussion is available in the early chapters of D. Gove book “Multicore Application Programming” [10].
+
 Threads have been with us for a very long time. All current operating systems support multi- threading, and threads are needed—even for programmers not concerned by parallel programming—to enhance the performance of interactive applications. We all see every day Web pages where several animations are running without interruption. Each one of these animations is a Java applet running as a thread. These applets are just sequential flows of control executing inside the application, which is the browser himself. When the browser runs on a single processor system, the operating system creates the illusion that the different animations are simultaneous in time. In fact, the different applets get, one at a time in a round-robin fashion, access to the processor for a short interval of time called a time slice. This time slice is very short—typically a few milliseconds—as compared to the time scale for human perception.
+
 The multicore evolution, and the fact that the number of cores per processor chip will keep increasing in the foreseeable future, has neatly enhanced the impact of multithreading. This software technology is today the only way to take full advantage of the enhanced performance of current computing systems.
 
 
